@@ -40,8 +40,8 @@ export class UsuariosController {
         try {
             return await this.usuarioService.insert(usuario);
         } catch (err) {
-            if (err.code === 23505)
-                throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);
+            if (err.code == 23505)
+                throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);    
             throw new HttpException({ reason: err }, HttpStatus.BAD_REQUEST);
 
         }
