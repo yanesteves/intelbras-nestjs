@@ -101,7 +101,10 @@ export class UsuariosService {
                 const response = await this.userRepository.delete({ id: param.id })
                 console.log('-delete response-')
                 console.log(response)
+                // verifico se alguma linha foi afetada após o delete.
                 const { affected } = response;
+                
+                // se linha alguma foi afetada significa que não foi realizado o delete.
                 if (affected === 0) {
                     reject({
                         code: 20000,

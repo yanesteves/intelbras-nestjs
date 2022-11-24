@@ -1,11 +1,24 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity({ name: "users" }) // definindo um nome para tabela
+// +-------------+--------------+----------------------------+
+// |                          users                          |
+// +-------------+--------------+----------------------------+
+// | id          | int(11)      | PRIMARY KEY AUTO_INCREMENT |
+// | name        | varchar(100) |                            |
+// | email       | varchar(50)  | UNIQUE                     |
+// | active      | boolean      |                            |
+// +-------------+--------------+----------------------------+
+
+/* 
+Definindo um nome para tabela
+obs: caso não seja aplicado o name, será utilizado o nome da entity como nome para tabela.
+*/
+@Entity({ name: "users" }) 
 export class UserEntity {
-    // Cria uma coluna primária cujo valor será gerado automaticamente com um valor de incremento automático. 
+    // Cria uma coluna primária cujo valor será gerado automaticamente com incremento automático. 
     @PrimaryGeneratedColumn()
     id: number;
-  
+    
     @Column({ length: 100 })
     name: string;
   

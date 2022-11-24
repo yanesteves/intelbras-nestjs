@@ -13,6 +13,7 @@ export const databaseProviders = [
         database: process.env.DB_NAME,
         entities: [
             __dirname + '/../../**/**/*.entity{.ts,.js}', // As entidades serão buscadas em todas as pastas e precisa existir .entity no nome do arquivo.
+            "dist/**/**/*.entity.js" // Corrigindo possível problema de importação da Entity.          
         ],
         synchronize: true, //Essa propriedade não deve ser utilizada em produção! Caso contrário os dados poderão ser perdidos.
       });
