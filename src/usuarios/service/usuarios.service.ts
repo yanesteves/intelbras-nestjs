@@ -15,6 +15,11 @@ export class UsuariosService {
     async findAll(): Promise<UserEntity[]> {
         return new Promise(async (resolve, reject) => {
             try {
+                /*
+                - SQL: SELECT * FROM "users"                                
+                - resposta:
+                    [UserEntity] ou []
+                */
                 let found = await this.userRepository.find();
                 found = found.map(obj => {
                     let entity = new UserEntity();
@@ -31,6 +36,11 @@ export class UsuariosService {
     async findOne(param: FindOneUserDTO): Promise<UserEntity> {
         return new Promise(async (resolve, reject) => {
             try {
+                /*                
+                - SQL: SELECT * FROM "users" WHERE "id" = x
+                - resposta:
+                    UserEntity{} ou vazio
+                */
                 const found = await this.userRepository.findOne({
                     where: param
                 })
@@ -44,7 +54,25 @@ export class UsuariosService {
     async insert(usuario: CriaUsuarioDTO): Promise<UserEntity> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { id } = (await this.userRepository.insert(usuario)).generatedMaps[0];
+                /*
+                - SQL: INSERT INTO "users" VALUES usuario
+                - resposta:
+                    InsertResult {
+                        identifiers: [ 
+                            { id: 7 } 
+                        ],
+                        generatedMaps: [ 
+                            { id: 7 } // o id indica qual é o novo PK vinculado ao usuário adicionado.
+                        ],
+                        raw: [ 
+                            { id: 7 } 
+                        ]
+                    }
+                */
+                const response = await this.userRepository.insert(usuario)
+                console.log('-insert response-')
+                console.log(response)
+                const { id } = (response).generatedMaps[0];
                 let created = new UserEntity();
                 created = { ...usuario, id: id }
                 resolve(created);
@@ -60,7 +88,20 @@ export class UsuariosService {
     async delete(param: FindOneUserDTO): Promise<boolean> {
         return new Promise(async (resolve, reject) => {
             try {
-                const { affected } = await this.userRepository.delete({ id: param.id })
+                /*
+               - SQL: DELETE FROM "users" WHERE id = x
+               - resposta:
+                  DeleteResult {
+                        { 
+                            raw: [], 
+                            affected: 1 // indica se algum dado foi afetado com a operação, será 0 quando não remover.
+                        }
+                   }
+               */
+                const response = await this.userRepository.delete({ id: param.id })
+                console.log('-delete response-')
+                console.log(response)
+                const { affected } = response;
                 if (affected === 0) {
                     reject({
                         code: 20000,
