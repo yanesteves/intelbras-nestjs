@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
+import { AtualizaUsuarioDTO } from '../dto/atualiza-usuario.dto';
 import { CriaUsuarioDTO } from '../dto/criar-usuario.dto';
 import { FindOneUserDTO } from '../dto/find-one-user.dto';
 import { UserEntity } from '../entities/User.entity';
@@ -43,7 +44,7 @@ export class UsuariosController {
             return await this.usuarioService.insert(usuario);
         } catch (err) {
             if (err.code == 23505)
-                throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);    
+                throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);
             throw new HttpException({ reason: err }, HttpStatus.BAD_REQUEST);
 
         }
@@ -53,6 +54,18 @@ export class UsuariosController {
     async delete(@Param() params: FindOneUserDTO): Promise<boolean> {
         try {
             return await this.usuarioService.delete(params);
+        } catch (err) {
+            if (err.code === 20000) {
+                throw new HttpException({ reason: err.detail }, HttpStatus.OK)
+            }
+            throw new HttpException({ reason: err.detail }, HttpStatus.NOT_MODIFIED)
+        }
+    }
+
+    @Put(':id')
+    async update(@Param() params: FindOneUserDTO, @Body() usuario: AtualizaUsuarioDTO): Promise<boolean> {
+        try {
+            return await this.usuarioService.update(params, usuario);
         } catch (err) {
             if (err.code === 20000) {
                 throw new HttpException({ reason: err.detail }, HttpStatus.OK)
