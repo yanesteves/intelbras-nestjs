@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CriarProdutoDTO } from '../dto/criar-produto.dto';
 import { FindProductDTO } from '../dto/find-product.dto';
 import { ProductEntity } from '../entities/Produto.entity';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { CategoriaProduto } from '../utils/CategoriaProduto.enum';
 
 @Injectable()
@@ -12,11 +12,21 @@ export class ProdutosService {
     private productRepository: Repository<ProductEntity>
   ) { }
 
+  passILike(obj) {
+    const aux = {...obj};
+    Object.keys(obj).forEach((key, index) => {
+      aux[key] = ILike(`%${obj[key]}%`)
+    })
+    console.log('-- aux --')
+    console.log(aux)
+    return aux;
+  }
+
   async find(query?): Promise<ProductEntity[]> {
     return new Promise(async (resolve, reject) => {
-      try {
+      try {       
         resolve(await this.productRepository.find({
-          where: query
+          where: this.passILike(query)
         }));
       } catch (error) {
         reject(error)
