@@ -12,10 +12,12 @@ export class ProdutosService {
     private productRepository: Repository<ProductEntity>
   ) { }
 
-  async find(): Promise<ProductEntity[]> {
+  async find(query?): Promise<ProductEntity[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        resolve(await this.productRepository.find());
+        resolve(await this.productRepository.find({
+          where: query
+        }));
       } catch (error) {
         reject(error)
       }

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, Put, Query, Res } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CriarProdutoDTO } from '../dto/criar-produto.dto';
@@ -11,6 +11,16 @@ import { ProdutosService } from '../service/produtos.service';
 export class ProdutosController {
   constructor(private produtosService: ProdutosService) { }
 
+  
+  @Get('/findByFilter')
+  async obterFilter(@Query() query): Promise<ProductEntity[]> {
+    try {
+      return await this.produtosService.find(query);
+    } catch (error) {
+      throw new HttpException({ reason: error?.detail }, HttpStatus.BAD_REQUEST)
+    } 
+  }
+  
   @Get(':id')
   async obterUm(@Param() params: FindProductDTO, @Res() response: Response): Promise<ProductEntity> {
     try {
