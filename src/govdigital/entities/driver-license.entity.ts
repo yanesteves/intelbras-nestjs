@@ -29,6 +29,9 @@ export class DriverLicenseEntity {
     (person) => person.driver)
     person: PersonEntity;
 
+    @Column({ default: false })
+    block: boolean;
+
     @CreateDateColumn()
     createdAt: Date;
 

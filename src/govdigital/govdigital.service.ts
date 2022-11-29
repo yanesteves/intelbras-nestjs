@@ -2,6 +2,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { CreatePersonDTO } from './dto/create-person.dto';
+import { UpdateDriverLicenseDTO } from './dto/update-driver-license.dto';
 import { DriverLicenseEntity } from './entities/driver-license.entity';
 import { PersonEntity } from './entities/person.entity';
 
@@ -52,6 +53,28 @@ export class GovdigitalService {
         })
       }
     })
+  }
+
+  updateDriverLicense(id: number, updateDriverLicense: UpdateDriverLicenseDTO) {
+    return new Promise(async (resolve, reject) => {
+      try {
+          const response = await this.driverLicenseRepository.update({ id: id }, updateDriverLicense)
+          // verifico se alguma linha foi afetada após o update.
+          const { affected } = response;
+          if (affected === 0) {
+              reject({
+                  code: 20000,
+                  detail: 'Este ID não está presente no banco de dados ou não foi possível atualizar.'
+              })
+          }
+          resolve(true)
+      } catch (error) {
+          reject({
+              code: error.code,
+              detail: error.detail
+          })
+      }
+  })
   }
 
   findAll() {

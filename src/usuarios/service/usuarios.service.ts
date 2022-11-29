@@ -142,7 +142,7 @@ export class UsuariosService {
                 if (affected === 0) {
                     reject({
                         code: 20000,
-                        detail: 'Este ID não está presente no banco de dados ou não foi possível remover.'
+                        detail: 'Este ID não está presente no banco de dados ou não foi possível atualizar.'
                     })
                 }
                 resolve(true)

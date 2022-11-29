@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { GovdigitalService } from '../govdigital.service';
 import { CreatePersonDTO } from '../dto/create-person.dto';
+import { UpdateDriverLicenseDTO } from '../dto/update-driver-license.dto';
 
 @Controller('govdigital')
 export class GovdigitalController {
@@ -31,6 +32,11 @@ export class GovdigitalController {
   @Get('/drivers')
   findDrivers() {
     return this.govdigitalService.driversWithPersonInfo();
+  }
+
+  @Patch('driver-license/:id')
+  async update(@Param('id') id, @Body() updateDriverLicense: UpdateDriverLicenseDTO) {
+    return await this.govdigitalService.updateDriverLicense(+id, updateDriverLicense);
   }
 
   // @Get(':id')
