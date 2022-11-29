@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProdutosModule } from './produtos/produtos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
+import { GovDigitalModule } from './govdigital/govdigital.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ 
@@ -11,7 +12,8 @@ import { UsuariosModule } from './usuarios/usuarios.module';
       isGlobal: true 
     }),
     ProdutosModule, 
-    UsuariosModule
+    UsuariosModule, 
+    GovDigitalModule
   ],
   controllers: [AppController],
   providers: [    
