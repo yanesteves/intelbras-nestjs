@@ -43,7 +43,7 @@ export class AddressEntity {
     zip: string;
 
     // AddressEntity tem uma relação mutios para um com a entidade PersonEntity
-    @ManyToOne(() => PersonEntity, (person) => person.addresses, { cascade: true, onDelete: 'CASCADE' })
+    @ManyToOne(() => PersonEntity, (person) => person.addresses, { onDelete: 'SET NULL'})
     @JoinColumn({ name: 'person_id' }) // opcional para OneToMany
     person: PersonEntity;
 

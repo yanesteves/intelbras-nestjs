@@ -31,7 +31,7 @@ export class PersonEntity {
     driver: DriverLicenseEntity;
 
     // PersonEntity tem uma relação um para muitos com a entidade AddressEntity
-    @OneToMany(() => AddressEntity, (addresses) => addresses.person)
+    @OneToMany(() => AddressEntity, (addresses) => addresses.person, { cascade: true })
     addresses: AddressEntity[]
 
     addAddress(address: AddressEntity) {
