@@ -6,7 +6,7 @@ import { CreateAddressDTO } from '../dto/create-address.dto';
 
 @Controller('govdigital')
 export class GovdigitalController {
-  constructor(private readonly govDigitalService: GovDigitalService) {}
+  constructor(private readonly govDigitalService: GovDigitalService) { }
 
   @Post()
   async create(@Body() createPerson: CreatePersonDTO) {
@@ -55,5 +55,10 @@ export class GovdigitalController {
   @Delete('person/:id')
   async removePerson(@Param('id') id: string) {
     return await this.govDigitalService.deletePerson(+id);
+  }
+
+  @Delete('address/:id')
+  async removeAddress(@Param('id') id: string) {
+    return await this.govDigitalService.deleteAddress(+id);
   }
 }
