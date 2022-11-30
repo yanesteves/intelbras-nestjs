@@ -78,14 +78,39 @@ export class GovDigitalService {
       let address = this.addressRepository.create();
       address = {...createAddress, ...address };
 
-      const person: PersonEntity = await this.personRepository.findOneBy({ id: id });            
+      const person: PersonEntity = await this.personRepository.findOne({
+        where: { id: id },
+        relations: {
+          addresses: true
+        }
+      });            
 
       person.addAddress(address);
 
       this.personRepository.save(person);
-      // this.addressRepository.save(address);
+
       resolve(address);
     });
+  }
+
+  deleteAddress(id: number) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const { affected } = await this.addressRepository.delete({ id: id })
+        if (affected === 0) {
+          reject({
+            code: 20000,
+            detail: 'Este ID não está presente no banco de dados ou não foi possível remover.'
+          })
+        }
+        resolve(true)
+      } catch (error) {
+        reject({
+          code: error.code,
+          detail: error.detail
+        })
+      }
+    })
   }
 
   updateDriverLicense(id: number, updateDriverLicense: UpdateDriverLicenseDTO) {
