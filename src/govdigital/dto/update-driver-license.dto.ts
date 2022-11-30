@@ -1,4 +1,4 @@
 export class UpdateDriverLicenseDTO {
-    category: string;
+    category: string; 
     block: boolean;
 }
