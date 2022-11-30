@@ -10,16 +10,6 @@ import { ProdutosService } from '../service/produtos.service';
 @Controller('produtos')
 export class ProdutosController {
   constructor(private produtosService: ProdutosService) { }
-
-  
-  @Get('/findByFilter')
-  async obterFilter(@Query() query): Promise<ProductEntity[]> {
-    try {
-      return await this.produtosService.find(query);
-    } catch (error) {
-      throw new HttpException({ reason: error?.detail }, HttpStatus.BAD_REQUEST)
-    } 
-  }
   
   @Get(':id')
   async obterUm(@Param() params: FindProductDTO, @Res() response: Response): Promise<ProductEntity> {
@@ -37,11 +27,14 @@ export class ProdutosController {
   }
 
   @Get()
-  async obterTodos(): Promise<ProductEntity[]> {
+  async obterProdutos(@Query() query): Promise<ProductEntity[]> {
     try {
-      return await this.produtosService.find();
+      return await this.produtosService.find(query);
     } catch (error) {
-      throw new HttpException({ reason: error?.detail }, HttpStatus.BAD_REQUEST)
+      throw new HttpException(
+        { reason: error?.detail },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 

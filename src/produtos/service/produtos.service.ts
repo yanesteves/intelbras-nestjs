@@ -13,7 +13,7 @@ export class ProdutosService {
   ) { }
 
   passILike(obj) {
-    const aux = {...obj};
+    const aux = { ...obj };
     Object.keys(obj).forEach((key, index) => {
       aux[key] = ILike(`%${obj[key]}%`)
     })
@@ -24,10 +24,14 @@ export class ProdutosService {
 
   async find(query?): Promise<ProductEntity[]> {
     return new Promise(async (resolve, reject) => {
-      try {       
-        resolve(await this.productRepository.find({
-          where: this.passILike(query)
-        }));
+      try {
+        if (query){          
+          resolve(await this.productRepository.find({
+            where: this.passILike(query)
+          }))
+        }
+
+        resolve(await this.productRepository.find())
       } catch (error) {
         reject(error)
       }
@@ -47,7 +51,7 @@ export class ProdutosService {
   async insert(product: CriarProdutoDTO): Promise<ProductEntity> {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await this.productRepository.insert({...product, category: parseInt(CategoriaProduto[product.category]) });
+        const response = await this.productRepository.insert({ ...product, category: parseInt(CategoriaProduto[product.category]) });
         const { id } = response.generatedMaps[0]
         let created = new ProductEntity();
         created = { ...product, id: id };
