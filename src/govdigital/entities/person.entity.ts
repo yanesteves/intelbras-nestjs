@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { AddressEntity } from "./address.entity";
 import { DriverLicenseEntity } from "./driver-license.entity";
 
 // +-------------+--------------+----------------------------+
@@ -23,11 +24,22 @@ export class PersonEntity {
     @OneToOne(
         // Especifico qual o tipo da coluna
         type => DriverLicenseEntity,
-        (driver) => driver.person,        
+        (driver) => driver.person,
         { cascade: true })
     // Esta coluna é a que irá reter a informação da relação com o nome driver_id
-    @JoinColumn({ name: 'driver_id' }) 
+    @JoinColumn({ name: 'driver_id' })
     driver: DriverLicenseEntity;
+
+    // PersonEntity tem uma relação um para muitos com a entidade AddressEntity
+    @OneToMany(() => AddressEntity, (addresses) => addresses.person)
+    addresses: AddressEntity[]
+
+    addAddress(address: AddressEntity) {
+        if (this.addresses == null) {
+            this.addresses = new Array<AddressEntity>();
+        }
+        this.addresses.push(address);
+    }
 
     @CreateDateColumn()
     createdAt: Date;

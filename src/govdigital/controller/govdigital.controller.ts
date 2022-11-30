@@ -1,56 +1,59 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { GovdigitalService } from '../govdigital.service';
+import { GovDigitalService } from '../service/govdigital.service';
 import { CreatePersonDTO } from '../dto/create-person.dto';
 import { UpdateDriverLicenseDTO } from '../dto/update-driver-license.dto';
+import { CreateAddressDTO } from '../dto/create-address.dto';
 
 @Controller('govdigital')
 export class GovdigitalController {
-  constructor(private readonly govdigitalService: GovdigitalService) {}
+  constructor(private readonly govDigitalService: GovDigitalService) {}
 
-  // POST /govdigital
-  // {
-  //   "name": "Yan Esteves",
-  //   "driver": {
-  //       "registry": "123456",
-  //       "category": "B"
-  //   }
-  // }
   @Post()
   async create(@Body() createPerson: CreatePersonDTO) {
-    return await this.govdigitalService.createPersonWithLicenseDriver(createPerson);
+    return await this.govDigitalService.createPersonWithLicenseDriver(createPerson);
   }
   // @Post()
   // create(@Body() createGovdigitalDto: CreateGovdigitalDto) {
-  //   return this.govdigitalService.create(createGovdigitalDto);
+  //   return this.govDigitalService.create(createGovdigitalDto);
   // }
+
+  @Get('/person/:id')
+  async findFullPerson(@Param('id') id) {
+    return await this.govDigitalService.fullInfoPerson(+id);
+  }
 
   @Get('/persons')
   findPersons() {
-    return this.govdigitalService.personsWithLicenseDrivers();
+    return this.govDigitalService.personsWithLicenseDrivers();
   }
 
   @Get('/drivers')
   findDrivers() {
-    return this.govdigitalService.driversWithPersonInfo();
+    return this.govDigitalService.driversWithPersonInfo();
   }
 
   @Patch('driver-license/:id')
   async update(@Param('id') id, @Body() updateDriverLicense: UpdateDriverLicenseDTO) {
-    return await this.govdigitalService.updateDriverLicense(+id, updateDriverLicense);
+    return await this.govDigitalService.updateDriverLicense(+id, updateDriverLicense);
+  }
+
+  @Post('link-address/:id')
+  async createAddressForPerson(@Param('id') id, @Body() createAddress: CreateAddressDTO) {
+    return await this.govDigitalService.createAddressForPerson(+id, createAddress);
   }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
-  //   return this.govdigitalService.findOne(+id);
+  //   return this.govDigitalService.findOne(+id);
   // }
 
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateGovdigitalDto: UpdateGovdigitalDto) {
-  //   return this.govdigitalService.update(+id, updateGovdigitalDto);
+  //   return this.govDigitalService.update(+id, updateGovdigitalDto);
   // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.govdigitalService.remove(+id);
-  // }
+  @Delete('person/:id')
+  async removePerson(@Param('id') id: string) {
+    return await this.govDigitalService.deletePerson(+id);
+  }
 }
