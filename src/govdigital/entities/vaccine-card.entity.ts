@@ -26,6 +26,20 @@ export class VaccineCardEntity {
     @JoinTable({ name: 'vaccinecard_vaccines'})
     vaccines: VaccineEntity[];
 
+    addVaccine(vaccine: VaccineEntity) {
+        if (this.vaccines == null) {
+            this.vaccines = new Array<VaccineEntity>();
+        }
+        this.vaccines.push(vaccine);
+    }    
+
+    addVaccines(vaccines: any[]) {
+        if (this.vaccines == null) {
+            this.vaccines = new Array<VaccineEntity>();
+        }
+        this.vaccines.push(...vaccines);
+    }    
+
     removeVaccine(vaccineID: number) {
         if (vaccineID !== null) {
             this.vaccines = this.vaccines.filter(item => item.id !== vaccineID)
