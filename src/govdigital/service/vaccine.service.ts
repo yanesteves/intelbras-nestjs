@@ -68,4 +68,22 @@ export class VaccineService {
       resolve(true)
     })
   }
+
+  unlinkVaccine(idVaccineCard: number, idVaccine: number) {
+    return new Promise(async (resolve) => {
+      const vaccineCard = await this.vaccineCardRepository.findOne({
+        where: { id: idVaccineCard },
+        relations: { vaccines: true },
+        select: {
+          vaccines: {
+            id: true
+          }
+        }
+      });
+
+      vaccineCard.removeVaccine(idVaccine);
+      await this.vaccineCardRepository.save(vaccineCard)
+      resolve(true)
+    })
+  }
 }

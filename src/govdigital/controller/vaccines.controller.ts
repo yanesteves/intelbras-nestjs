@@ -17,10 +17,10 @@ export class VaccineController {
     return await this.vaccineService.createVaccine(createVaccine);
   }
 
-  // @Delete(':id')
-  // async deleteVaccine(@Param('id') id: string) {
-  //   return await this.vaccineService.deleteVaccine(+id);
-  // }
+  @Delete(':id')
+  async unlinkVaccine(@Param('id') id) {
+    return await this.vaccineService.unlinkVaccine(+id, 1);
+  }
 
   @Post('link-vaccine/:id')
   async linkVaccineForCard(@Param('id') vaccineCard, @Body() body: LinkVaccinesInCardDTO) {

@@ -31,7 +31,7 @@ export class GovDigitalService {
           driver: true,
           addresses: true,
           vaccine_card: {
-            vaccines: true
+            vaccines: true // Informo que deve ser populado com a informação da vacina
           },          
         }
       })

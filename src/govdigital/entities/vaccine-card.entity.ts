@@ -20,9 +20,17 @@ export class VaccineCardEntity {
     @OneToOne(() => PersonEntity, (person) => person.vaccine_card)
     person: PersonEntity;    
 
+    // Decorator para N:N 
     @ManyToMany(type => VaccineEntity)
-    @JoinTable({ name: 'vaccinecard_vaccines'}) // Decorator para N:N e especifica qual o lado é o "dono do relacionamento".
+    // Especifico qual o lado é o "dono do relacionamento".
+    @JoinTable({ name: 'vaccinecard_vaccines'})
     vaccines: VaccineEntity[];
+
+    removeVaccine(vaccineID: number) {
+        if (vaccineID !== null) {
+            this.vaccines = this.vaccines.filter(item => item.id !== vaccineID)
+        }
+    }
 
     @CreateDateColumn()
     createdAt: Date;
