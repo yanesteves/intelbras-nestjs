@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { ProdutosModule } from './produtos/produtos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { GovDigitalModule } from './govdigital/govdigital.module';
+import { TwitterModule } from './twitter/twitter.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ 
@@ -13,7 +14,7 @@ import { GovDigitalModule } from './govdigital/govdigital.module';
     }),
     ProdutosModule, 
     UsuariosModule, 
-    GovDigitalModule
+    GovDigitalModule, TwitterModule
   ],
   controllers: [AppController],
   providers: [    
