@@ -3,7 +3,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CriarProdutoDTO } from '../dto/criar-produto.dto';
 import { FindProductDTO } from '../dto/find-product.dto';
-import { ProductEntity } from '../entities/Produto.entity';
+import { ProductEntity } from '../entities/produto.entity';
 import { ProdutosService } from '../service/produtos.service';
 
 @ApiTags('produtos')

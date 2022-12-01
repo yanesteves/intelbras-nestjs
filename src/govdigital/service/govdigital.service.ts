@@ -29,7 +29,10 @@ export class GovDigitalService {
         },
         relations: {
           driver: true,
-          addresses: true
+          addresses: true,
+          vaccine_card: {
+            vaccines: true // Informo que deve ser populado com a informação da vacina
+          },          
         }
       })
 
@@ -61,7 +64,7 @@ export class GovDigitalService {
     })
   }
 
-  createPersonWithLicenseDriver(createPerson: CreatePersonDTO): Promise<PersonEntity> {
+  createPerson(createPerson: CreatePersonDTO): Promise<PersonEntity> {
     return new Promise(async (resolve, reject) => {
       try {
         const personToBeSaved = await this.personRepository.create(createPerson);
@@ -93,14 +96,16 @@ export class GovDigitalService {
     });
   }
 
-  deleteAddress(id: number) {
+  updateDriverLicense(id: number, updateDriverLicense: UpdateDriverLicenseDTO) {
     return new Promise(async (resolve, reject) => {
       try {
-        const { affected } = await this.addressRepository.delete({ id: id })
+        const response = await this.driverLicenseRepository.update({ id: id }, updateDriverLicense)
+        // verifico se alguma linha foi afetada após o update.
+        const { affected } = response;
         if (affected === 0) {
           reject({
             code: 20000,
-            detail: 'Este ID não está presente no banco de dados ou não foi possível remover.'
+            detail: 'Este ID não está presente no banco de dados ou não foi possível atualizar.'
           })
         }
         resolve(true)
@@ -113,16 +118,14 @@ export class GovDigitalService {
     })
   }
 
-  updateDriverLicense(id: number, updateDriverLicense: UpdateDriverLicenseDTO) {
+  deleteAddress(id: number) {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await this.driverLicenseRepository.update({ id: id }, updateDriverLicense)
-        // verifico se alguma linha foi afetada após o update.
-        const { affected } = response;
+        const { affected } = await this.addressRepository.delete({ id: id })
         if (affected === 0) {
           reject({
             code: 20000,
-            detail: 'Este ID não está presente no banco de dados ou não foi possível atualizar.'
+            detail: 'Este ID não está presente no banco de dados ou não foi possível remover.'
           })
         }
         resolve(true)

@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { AddressEntity } from "./address.entity";
 import { DriverLicenseEntity } from "./driver-license.entity";
+import { VaccineCardEntity } from "./vaccine-card.entity";
 
 // +-------------+--------------+----------------------------+
 // |                        persons                          |
@@ -11,9 +12,11 @@ import { DriverLicenseEntity } from "./driver-license.entity";
 // | cpf         | varchar(14)  |                            |
 // | rg          | varchar(14)  |                            |
 // | driver      | int(11)      | FOREIGN KEY                |
+// | createdAt   | date         |                            |
+// | updatedAt   | date         |                            |
 // +-------------+--------------+----------------------------+
 
-@Entity('persons')
+@Entity({ name: 'persons' })
 export class PersonEntity {
     @PrimaryGeneratedColumn()
     id: number;
@@ -39,7 +42,11 @@ export class PersonEntity {
             this.addresses = new Array<AddressEntity>();
         }
         this.addresses.push(address);
-    }
+    }    
+
+    @OneToOne(() => VaccineCardEntity, (vaccineCard) => vaccineCard.person ,{ cascade: true })
+    @JoinColumn({ name: 'vaccine_card_id' })
+    vaccine_card: VaccineCardEntity;
 
     @CreateDateColumn()
     createdAt: Date;

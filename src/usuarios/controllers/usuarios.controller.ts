@@ -4,7 +4,7 @@ import { Response } from 'express';
 import { AtualizaUsuarioDTO } from '../dto/atualiza-usuario.dto';
 import { CriaUsuarioDTO } from '../dto/criar-usuario.dto';
 import { FindOneUserDTO } from '../dto/find-one-user.dto';
-import { UserEntity } from '../entities/User.entity';
+import { UserEntity } from '../entities/user.entity';
 import { UsuariosService } from '../service/usuarios.service';
 
 @ApiTags('usuarios')
