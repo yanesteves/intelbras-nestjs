@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CriarProdutoDTO } from '../dto/criar-produto.dto';
 import { FindProductDTO } from '../dto/find-product.dto';
-import { ProductEntity } from '../entities/Produto.entity';
+import { ProductEntity } from '../entities/produto.entity';
 import { ILike, Repository } from 'typeorm';
 import { CategoriaProduto } from '../utils/CategoriaProduto.enum';
 

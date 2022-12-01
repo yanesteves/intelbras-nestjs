@@ -3,7 +3,7 @@ import { CriaUsuarioDTO } from 'src/usuarios/dto/criar-usuario.dto';
 import { Repository } from 'typeorm';
 import { AtualizaUsuarioDTO } from '../dto/atualiza-usuario.dto';
 import { FindOneUserDTO } from '../dto/find-one-user.dto';
-import { UserEntity } from '../entities/User.entity';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UsuariosService {
