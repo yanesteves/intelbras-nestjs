@@ -12,7 +12,7 @@ export class TweetEntity{
     @CreateDateColumn()
     createdDate: Date
 
-    @ManyToOne(() => UserEntity, (user) => user, { onDelete: 'SET NULL' })
+    @ManyToOne(() => UserEntity, (user) => user.tweets, { onDelete: 'SET NULL' })
     @JoinColumn({name: 'user_id'})
     user: UserEntity
 }
