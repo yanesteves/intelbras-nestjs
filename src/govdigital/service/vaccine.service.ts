@@ -67,9 +67,11 @@ export class VaccineService {
             vaccines: true
           }
         })
+
         vaccineCardToBeSaved.addVaccines(vaccineToLink);
 
         await this.vaccineCardRepository.save(vaccineCardToBeSaved);
+
         resolve(true)
       } catch (error) {
         reject({

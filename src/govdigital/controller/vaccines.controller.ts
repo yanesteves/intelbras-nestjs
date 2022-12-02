@@ -19,7 +19,7 @@ export class VaccineController {
 
   @Delete(':id')
   async unlinkVaccine(@Param('id') id) {
-    return await this.vaccineService.unlinkVaccine(+id, 1);
+    return await this.vaccineService.unlinkVaccine(1, +id);
   }
 
   @Post('link-vaccine/:id')
