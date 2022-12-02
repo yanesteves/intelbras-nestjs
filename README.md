@@ -58,6 +58,20 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Migrations
+```bash
+# Cria uma migration (vazia)
+$ npm run migration:create --name=nome_migration
+
+# Gerar uma migration com alterações no schema
+$ npm run migration:generate --name=nome_migration
+
+# RRodar a migration gerada e verificar mudanças no schema
+$ npm run migration:run
+
+# Reverter a migration
+$ npm run migration:revert
+```
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
