@@ -56,16 +56,29 @@ export class VaccineService {
     })
   }
 
-  linkVaccineInCard(idVaccineCard: number, vaccinesToLink) {
-    return new Promise((resolve) => {
-      const vaccineCard = this.vaccineCardRepository.create({
-        id: idVaccineCard,
-        vaccines: vaccinesToLink
-      })
+  linkVaccineInCard(idVaccineCard: number, vaccineToLink): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const vaccineCardToBeSaved = await this.vaccineCardRepository.findOne({
+          where: {
+            id: idVaccineCard
+          },
+          relations: {
+            vaccines: true
+          }
+        })
 
-      this.vaccineCardRepository.save(vaccineCard);
+        vaccineCardToBeSaved.addVaccines(vaccineToLink);
 
-      resolve(true)
+        await this.vaccineCardRepository.save(vaccineCardToBeSaved);
+
+        resolve(true)
+      } catch (error) {
+        reject({
+          code: error.code,
+          detail: error.detail
+        })
+      }
     })
   }
 

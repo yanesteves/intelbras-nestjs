@@ -31,9 +31,15 @@ export class GovDigitalService {
           driver: true,
           addresses: true,
           vaccine_card: {
-            vaccines: true // Informo que deve ser populado com a informação da vacina
-          },          
-        }
+            vaccines: true
+          }
+        },
+        // select: { // SELECT * => SELECT name, vaccine_card FROM ...
+        //   name: true,
+        //   vaccine_card: {
+        //     vaccines: true
+        //   }
+        // }        
       })
 
       resolve(res)
