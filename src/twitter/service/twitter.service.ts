@@ -1,9 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from './../dto/create-user.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { UserEntity } from '../entities/user.entity';
 // import { CreateTwitterDto } from './dto/create-twitter.dto';
 // import { UpdateTwitterDto } from './dto/update-twitter.dto';
 
 @Injectable()
 export class TwitterService {
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private userRepository: Repository<UserEntity>,
+  ) {}
+
+  create(usuario: CreateUserDto) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const userToSave = this.userRepository.create(usuario);
+        resolve(await this.userRepository.save(userToSave));
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
   // create(createTwitterDto: CreateTwitterDto) {
   //   return 'This action adds a new twitter';
   // }

@@ -2,23 +2,22 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProdutosModule } from './produtos/produtos.module';
-import { UsuariosModule } from './usuarios/usuarios.module';
-import { GovDigitalModule } from './govdigital/govdigital.module';
+// import { ProdutosModule } from './produtos/produtos.module';
+// import { UsuariosModule } from './usuarios/usuarios.module';
+// import { GovDigitalModule } from './govdigital/govdigital.module';
 import { TwitterModule } from './twitter/twitter.module';
 @Module({
   imports: [
-    ConfigModule.forRoot({ 
+    ConfigModule.forRoot({
       envFilePath: '.env',
-      isGlobal: true 
+      isGlobal: true,
     }),
-    ProdutosModule, 
-    UsuariosModule, 
-    GovDigitalModule, TwitterModule
+    // ProdutosModule,
+    // UsuariosModule,
+    // GovDigitalModule,
+    TwitterModule,
   ],
   controllers: [AppController],
-  providers: [    
-    AppService
-  ],
+  providers: [AppService],
 })
 export class AppModule {}
