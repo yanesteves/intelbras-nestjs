@@ -13,7 +13,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 Definindo um nome para tabela
 obs: caso não seja aplicado o name, será utilizado o nome da entity como nome para tabela.
 */
-@Entity({ name: "users" }) 
+@Entity({ name: "users2" }) 
 export class UserEntity {
     // Cria uma coluna primária cujo valor será gerado automaticamente com incremento automático. 
     @PrimaryGeneratedColumn()

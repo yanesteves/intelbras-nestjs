@@ -14,7 +14,7 @@ export const AppDataSource = new DataSource({
         "dist/**/**/*.entity.js" // Corrigindo possível problema de importação da Entity.          
     ],
     migrations: [
-      __dirname + '../migrations/*{.ts,.js}',
+      // __dirname + '../migrations/*{.ts,.js}',
       __dirname + './migrations/*{.ts,.js}',
       "dist/core/database/migrations/*{.ts,.js}"
     ],
