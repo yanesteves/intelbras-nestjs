@@ -1,11 +1,10 @@
 import { ForbiddenException, Inject, Injectable, UnauthorizedException, UnprocessableEntityException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { CreateUserDTO } from 'src/users/dto/create-user.dto';
-import { CredentialsDTO } from 'src/users/dto/credentials.dto';
-import { UserEntity } from 'src/users/entities/user.entity';
+import { CredentialsDTO } from 'src/core/auth/dto/credentials.dto';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { resolve } from 'path';
+import { UserEntity } from 'src/usuarios/entities/user.entity';
+import { CreateUserDTO } from 'src/usuarios/dto/create-user-dto';
 
 @Injectable()
 export class AuthService {
@@ -43,7 +42,8 @@ export class AuthService {
             const user = this.userRepository.create()
             user.email = email;
             user.name = name;
-            user.salt = await bcrypt.genSalt();
+            user.active = true;
+            user.salt = await bcrypt.genSalt(12);
             user.confirmationToken = '';
             user.recoverToken = '';
             user.password = await this.hashPassword(password, user.salt);
@@ -58,7 +58,8 @@ export class AuthService {
         const { email, password } = credentials;
         const user = await this.userRepository.findOne({
             where: {
-                email, status: true
+                email: email,
+                active: true
             }
         })
 

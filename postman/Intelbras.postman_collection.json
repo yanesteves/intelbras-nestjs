@@ -331,7 +331,7 @@
 					"response": []
 				},
 				{
-					"name": "Criar Usuário",
+					"name": "Criar Usuário [DESCONTINUADO]",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -389,13 +389,390 @@
 			"name": "GovDigital",
 			"item": [
 				{
-					"name": "Create Person with license driver",
+					"name": "Vacinas",
+					"item": [
+						{
+							"name": "Vacinas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/vaccines",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"vaccines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar Vacina",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"COVID-19\",\r\n    \"laboratory\": \"Sinovac\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/vaccines",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"vaccines"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Remover Vacina do Cartão",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/vaccines/3",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"vaccines",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Adc Vacina em um cartão",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"vaccines\": [\r\n        { \"id\": 3 }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/vaccines/link-vaccine/1",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"vaccines",
+										"link-vaccine",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pessoas",
+					"item": [
+						{
+							"name": "Persons",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/persons",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"persons"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Persons [2]",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital?motorista=true",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital"
+									],
+									"query": [
+										{
+											"key": "motorista",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Driver",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/drivers",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"drivers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Person [Full Info]",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/person/1",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"person",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Address",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"street\": \"Rua José\",\r\n    \"number\": 300,\r\n    \"district\": \"São Pedro\",\r\n    \"city\": \"Juiz de Fora\",\r\n    \"state\": \"MG\",\r\n    \"country\": \"BR\",\r\n    \"zip\": \"36036-000\"    \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/link-address/3",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"link-address",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create Person",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"cpf\": \"10010010010\",\r\n    \"driver\": {\r\n        \"registry\": \"553456\",\r\n        \"category\": \"AB\"\r\n    },\r\n    \"vaccine_card\": {\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Driver License",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"block\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/driver-license/1",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"driver-license",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Person",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"block\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/person/3",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"person",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Address",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"block\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/govdigital/address/2",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"govdigital",
+										"address",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign In",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"email\": \"yan.m.esteves@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -403,56 +780,35 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/govdigital",
+							"raw": "{{server}}/auth/signin",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"govdigital"
+								"auth",
+								"signin"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update Driver License",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"block\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{server}}/govdigital/driver-license/1",
-							"host": [
-								"{{server}}"
-							],
-							"path": [
-								"govdigital",
-								"driver-license",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Persons",
+					"name": "Headers [TEST]",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IllhbiBFc3RldmVzIiwiZW1haWwiOiJ5YW4ubS5lc3RldmVzQGdtYWlsLmNvbSIsImlhdCI6MTY3MDM1MTg0NSwiZXhwIjoxNjcwMzUyMjA1fQ.OWnCY-GCDCsJvHmB7nlg1V7gViFwPGskoifSD_4X2xk",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"email\": \"\",\r\n    \"password\": \"\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -460,29 +816,26 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/govdigital/persons",
+							"raw": "{{server}}/auth/me",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"govdigital",
-								"persons"
+								"auth",
+								"me"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Persons [2]",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Sign Up",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"email\": \"yan.m.esteves@gmail.com\",\r\n    \"password\": \"123456\",\r\n    \"confirm_password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -490,28 +843,31 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/govdigital",
+							"raw": "{{server}}/auth/signup",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"govdigital"
+								"auth",
+								"signup"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Twitter",
+			"item": [
 				{
-					"name": "Drivers",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "Create Tweet",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"driver\": {\r\n        \"registry\": \"123456\",\r\n        \"category\": \"B\"\r\n    }\r\n}",
+							"raw": "{\r\n\t\"nome\": \"Zezinho\",\r\n\t\"email\": \"zezeinhp@mail.com\",\r\n\t\"usuario\": \"zeze\",\r\n\t\"ativo\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,13 +875,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/govdigital/drivers",
+							"raw": "{{server}}/twitter",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
-								"govdigital",
-								"drivers"
+								"twitter"
 							]
 						}
 					},

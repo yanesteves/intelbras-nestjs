@@ -5,21 +5,32 @@ import { AppService } from './app.service';
 import { ProdutosModule } from './produtos/produtos.module';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { GovDigitalModule } from './govdigital/govdigital.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
+import { JwtModule } from '@nestjs/jwt';
+import { AuthService } from './core/auth/auth.service';
+import { userProviders } from './usuarios/usuarios.providers';
+import { databaseProviders } from './core/database/database.providers';
 @Module({
-  imports: [
+  imports: [    
     ConfigModule.forRoot({ 
       envFilePath: '.env',
       isGlobal: true 
     }),
+    JwtModule.register({
+      secret: 'jb2KURr1O89JjfcvCPIZkh3qQQ',
+      signOptions: {
+        expiresIn: 60 * 6
+      }
+    }),
     ProdutosModule, 
     UsuariosModule, 
-    GovDigitalModule, AuthModule, UsersModule
+    GovDigitalModule
   ],
   controllers: [AppController],
-  providers: [    
-    AppService
+  providers: [ 
+    ...databaseProviders,
+    ...userProviders,   
+    AppService,
+    AuthService
   ],
 })
 export class AppModule {}

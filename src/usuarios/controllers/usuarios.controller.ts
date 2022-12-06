@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Post, 
 import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AtualizaUsuarioDTO } from '../dto/atualiza-usuario.dto';
-import { CriaUsuarioDTO } from '../dto/criar-usuario.dto';
+import { CreateUserDTO } from '../dto/create-user-dto';
 import { FindOneUserDTO } from '../dto/find-one-user.dto';
 import { UserEntity } from '../entities/user.entity';
 import { UsuariosService } from '../service/usuarios.service';
@@ -38,17 +38,17 @@ export class UsuariosController {
         }
     }
 
-    @Post()
-    async insert(@Body() usuario: CriaUsuarioDTO): Promise<UserEntity> {
-        try {
-            return await this.usuarioService.insert(usuario);
-        } catch (err) {
-            if (err.code == 23505)
-                throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);
-            throw new HttpException({ reason: err }, HttpStatus.BAD_REQUEST);
+    // @Post()
+    // async insert(@Body() usuario: CreateUserDTO): Promise<UserEntity> {
+    //     try {
+    //         return await this.usuarioService.insert(usuario);
+    //     } catch (err) {
+    //         if (err.code == 23505)
+    //             throw new HttpException({ reason: err.detail }, HttpStatus.CONFLICT);
+    //         throw new HttpException({ reason: err }, HttpStatus.BAD_REQUEST);
 
-        }
-    }
+    //     }
+    // }
 
     @Delete(':id')
     async delete(@Param() params: FindOneUserDTO): Promise<boolean> {

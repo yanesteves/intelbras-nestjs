@@ -9,10 +9,10 @@ export class CreateUserDTO {
     readonly name: string;
 
     @IsString()
-    @IsEmail()
     @MaxLength(30)
+    @IsEmail(undefined, { message: "O e-mail informado não é válido" })
     readonly email: string;
-
+        
     @IsString()
     @MinLength(6)
     @MaxLength(20)
@@ -22,5 +22,12 @@ export class CreateUserDTO {
     @MinLength(6)
     @MaxLength(20)
     @Match('password') // Validar se password == confirm_password
-    readonly confirm_password: string;
+    readonly confirm_password: string;    
+
+    // readonly senha: string;
+    // @ValidateNested() // Validar objetos dos arrays
+    // @IsArray() // Verifica se é um array
+    // @Type(() => EnderecoDTO) // Tipo de validação a ser aplicada.
+    // @ArrayNotEmpty() // caso queira validar que o array está vazio.
+    // readonly endereco: EnderecoDTO[];
 }

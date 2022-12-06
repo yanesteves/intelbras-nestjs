@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CriaUsuarioDTO } from 'src/usuarios/dto/criar-usuario.dto';
 import { Repository } from 'typeorm';
 import { AtualizaUsuarioDTO } from '../dto/atualiza-usuario.dto';
+import { CreateUserDTO } from '../dto/create-user-dto';
 import { FindOneUserDTO } from '../dto/find-one-user.dto';
 import { UserEntity } from '../entities/user.entity';
 
@@ -21,13 +21,8 @@ export class UsuariosService {
                 - resposta:
                     [UserEntity] ou []
                 */
-                let found = await this.userRepository.find();
-                found = found.map(obj => {
-                    let entity = new UserEntity();
-                    entity = { ...obj }
-                    return entity;
-                })
-                resolve(found);
+                resolve(await this.userRepository.find());
+                resolve(null)
             } catch (error) {
                 reject(error)
             }
@@ -52,39 +47,40 @@ export class UsuariosService {
         })
     }
 
-    async insert(usuario: CriaUsuarioDTO): Promise<UserEntity> {
-        return new Promise(async (resolve, reject) => {
-            try {
-                /*
-                - SQL: INSERT INTO "users" VALUES usuario
-                - resposta:
-                    InsertResult {
-                        identifiers: [ 
-                            { id: 7 } 
-                        ],
-                        generatedMaps: [ 
-                            { id: 7 } // o id indica qual é o novo PK vinculado ao usuário adicionado.
-                        ],
-                        raw: [ 
-                            { id: 7 } 
-                        ]
-                    }
-                */
-                const response = await this.userRepository.insert(usuario)
-                console.log('-insert response-')
-                console.log(response)
-                const { id } = (response).generatedMaps[0];
-                let created = new UserEntity();
-                created = { ...usuario, id: id }
-                resolve(created);
-            } catch (error: any) {
-                reject({
-                    code: error.code,
-                    detail: error.detail
-                })
-            }
-        })
-    }
+    // async insert(usuario: CreateUserDTO): Promise<UserEntity> {
+        // return new Promise(async (resolve, reject) => {
+        //     try {
+        //         /*
+        //         - SQL: INSERT INTO "users" VALUES usuario
+        //         - resposta:
+        //             InsertResult {
+        //                 identifiers: [ 
+        //                     { id: 7 } 
+        //                 ],
+        //                 generatedMaps: [ 
+        //                     { id: 7 } // o id indica qual é o novo PK vinculado ao usuário adicionado.
+        //                 ],
+        //                 raw: [ 
+        //                     { id: 7 } 
+        //                 ]
+        //             }
+        //         */
+        //         const response = await this.userRepository.insert(usuario)
+        //         console.log('-insert response-')
+        //         console.log(response)
+        //         const { id } = (response).generatedMaps[0];
+        //         let created = new UserEntity();
+        //         created = { ...usuario, id: id }
+        //         resolve(created);
+        //         resolve(null)
+        //     } catch (error: any) {
+        //         reject({
+        //             code: error.code,
+        //             detail: error.detail
+        //         })
+        //     }
+        // })
+    // }
 
     async delete(param: FindOneUserDTO): Promise<boolean> {
         return new Promise(async (resolve, reject) => {
