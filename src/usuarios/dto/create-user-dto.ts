@@ -1,5 +1,6 @@
 import { IsEmail, IsString, MaxLength, MinLength } from "class-validator";
 import { Match } from "src/core/constraints/match.decorator";
+import { UserRole } from "../entities/user.entity";
 
 export class CreateUserDTO {
 
@@ -22,7 +23,9 @@ export class CreateUserDTO {
     @MinLength(6)
     @MaxLength(20)
     @Match('password') // Validar se password == confirm_password
-    readonly confirm_password: string;    
+    readonly confirm_password: string;
+    
+    readonly role: UserRole;
 
     // readonly senha: string;
     // @ValidateNested() // Validar objetos dos arrays

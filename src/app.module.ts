@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './core/auth/auth.service';
 import { userProviders } from './usuarios/usuarios.providers';
 import { databaseProviders } from './core/database/database.providers';
+import { JwtStrategy } from './core/auth/guards/jwt.strategy';
 @Module({
   imports: [    
     ConfigModule.forRoot({ 
@@ -30,7 +31,8 @@ import { databaseProviders } from './core/database/database.providers';
     ...databaseProviders,
     ...userProviders,   
     AppService,
-    AuthService
+    AuthService,
+    JwtStrategy
   ],
 })
 export class AppModule {}

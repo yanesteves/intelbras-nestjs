@@ -1,5 +1,10 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
+
+export enum UserRole {
+    ADMIN = "admin",
+    CLIENT = "client",
+}
 // +-------------+--------------+----------------------------+
 // |                          users                          |
 // +-------------+--------------+----------------------------+
@@ -9,6 +14,7 @@ import * as bcrypt from 'bcrypt';
 // | active      | boolean      |                            |
 // | password    | varchar      |                            |
 // | salt        | varchar      |                            |
+// | role        | enum         | ADMIN, Client              |
 // | createdAt   | Date         |                            |
 // | updatedAt   | Date         |                            |
 // +-------------+--------------+----------------------------+
@@ -41,6 +47,11 @@ export class UserEntity {
 
     @Column()
     active: boolean;
+
+    @Column({type: "enum",
+    enum: UserRole,
+    default: UserRole.CLIENT})
+    role: UserRole;
 
     @Column({ type: 'varchar', length: 64 })
     confirmationToken: string;

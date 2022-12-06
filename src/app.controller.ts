@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Post, ValidationPipe, Headers, ForbiddenException } from '@nestjs/common';
+import { Body, Controller, Get, Post,Request, ValidationPipe, Headers, ForbiddenException, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AppService } from './app.service';
 import { AuthService } from './core/auth/auth.service';
 import { CredentialsDTO } from './core/auth/dto/credentials.dto';
+import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
 import { CreateUserDTO } from './usuarios/dto/create-user-dto';
 
 @Controller()
@@ -14,18 +16,13 @@ export class AppController {
     return this.appService.getHello();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('/auth/me')
-  async me(@Headers('authorization') authorizationToken) {
-    try {
-      const validate = await this.authService.validateToken(authorizationToken)
-      return {
-        validate
-      }
-    } catch (error) {
-      throw new ForbiddenException()
-    }
+  async me(@Request() req) {
+    console.log(req)
+    return req.user;
   }
-
+  
   @Post('/auth/signup')
   async signUp(@Body(ValidationPipe) createUserDto: CreateUserDTO) {
     await this.authService.signUp(createUserDto);

@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { GovDigitalService } from '../service/govdigital.service';
 import { CreatePersonDTO } from '../dto/create-person.dto';
 import { UpdateDriverLicenseDTO } from '../dto/update-driver-license.dto';
 import { VaccineService } from '../service/vaccine.service';
-import { LinkVaccinesInCardDTO } from '../dto/link-vaccine-to-card.dto';
+
 
 @Controller('govdigital')
 export class GovDigitalController {

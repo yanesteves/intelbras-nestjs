@@ -30,7 +30,8 @@ export class AuthService {
         const jwtPayload = {
             id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            role: user.role
         }
         const token = await this.jwtService.sign(jwtPayload);
         return { token }
@@ -38,11 +39,12 @@ export class AuthService {
 
     createUser(createUser: CreateUserDTO): Promise<UserEntity> {
         return new Promise(async (resolve) => {            
-            const { email, name, password } = createUser;
+            const { email, name, password, role } = createUser;
             const user = this.userRepository.create()
             user.email = email;
             user.name = name;
             user.active = true;
+            user.role = role;
             user.salt = await bcrypt.genSalt(12);
             user.confirmationToken = '';
             user.recoverToken = '';
