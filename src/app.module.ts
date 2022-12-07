@@ -10,6 +10,7 @@ import { AuthService } from './core/auth/auth.service';
 import { userProviders } from './usuarios/usuarios.providers';
 import { databaseProviders } from './core/database/database.providers';
 import { JwtStrategy } from './core/auth/guards/strategy/jwt.strategy';
+import { GoogleStrategy } from './core/auth/guards/strategy/google.strategy';
 
 @Module({
   imports: [    
@@ -34,6 +35,7 @@ import { JwtStrategy } from './core/auth/guards/strategy/jwt.strategy';
     AppService,
     AuthService,
     JwtStrategy,
+    GoogleStrategy
     // Caso queira RolesGuard global no app
     // Possível problema:
     // Quando está global, ele executará antes do guard anterior
