@@ -1,6 +1,6 @@
 import { IsEmail, IsString, MaxLength, MinLength } from "class-validator";
 import { Match } from "src/core/constraints/match.decorator";
-import { UserRole } from "../entities/user.entity";
+import { UserRole } from "../enum/user.role";
 
 export class CreateUserDTO {
 

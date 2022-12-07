@@ -1,10 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
+import { UserRole } from "../enum/user.role";
 
-export enum UserRole {
-    ADMIN = "admin",
-    CLIENT = "client",
-}
 // +-------------+--------------+----------------------------+
 // |                          users                          |
 // +-------------+--------------+----------------------------+

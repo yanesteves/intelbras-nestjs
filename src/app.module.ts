@@ -9,7 +9,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { AuthService } from './core/auth/auth.service';
 import { userProviders } from './usuarios/usuarios.providers';
 import { databaseProviders } from './core/database/database.providers';
-import { JwtStrategy } from './core/auth/guards/jwt.strategy';
+import { JwtStrategy } from './core/auth/guards/strategy/jwt.strategy';
+
 @Module({
   imports: [    
     ConfigModule.forRoot({ 
@@ -32,7 +33,15 @@ import { JwtStrategy } from './core/auth/guards/jwt.strategy';
     ...userProviders,   
     AppService,
     AuthService,
-    JwtStrategy
+    JwtStrategy,
+    // Caso queira RolesGuard global no app
+    // Possível problema:
+    // Quando está global, ele executará antes do guard anterior
+    // portanto a análise do jwt ainda não terá sido feita. Isso signifca que req.user ainda não existe.
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // }
   ],
 })
 export class AppModule {}

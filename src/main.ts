@@ -8,6 +8,7 @@ async function bootstrap() {
     logger: ['error', 'warn']
   });
   app.useGlobalPipes(new ValidationPipe());
+  // app.useGlobalGuards(new RolesGuard(new Reflector()));
 
   const config = new DocumentBuilder()
     .setTitle('DevIn[Intelbras]')

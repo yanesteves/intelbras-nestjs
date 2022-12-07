@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Post,Request, ValidationPipe, Headers, ForbiddenException, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { Body, Controller, Get, Post,Request, ValidationPipe, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 import { AuthService } from './core/auth/auth.service';
 import { CredentialsDTO } from './core/auth/dto/credentials.dto';
+import { Roles } from './core/auth/guards/decorator/roles.decorator';
 import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
+import { RolesGuard } from './core/auth/guards/roles.guard';
 import { CreateUserDTO } from './usuarios/dto/create-user-dto';
+import { UserRole } from './usuarios/enum/user.role';
 
 @Controller()
 export class AppController {
@@ -21,6 +23,13 @@ export class AppController {
   async me(@Request() req) {
     console.log(req)
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard, RolesGuard)  
+  @Roles(UserRole.ADMIN)
+  @Get('/admin')  
+  async adminRoute() {
+    return 'Você tem acesso.'
   }
   
   @Post('/auth/signup')
