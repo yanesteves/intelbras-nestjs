@@ -6,13 +6,20 @@ import { Roles } from './core/auth/guards/decorator/roles.decorator';
 import { GoogleOAuthGuard } from './core/auth/guards/google-oauth.guard';
 import { JwtAuthGuard } from './core/auth/guards/jwt-auth.guard';
 import { RolesGuard } from './core/auth/guards/roles.guard';
+import { Result } from './core/result/result.class';
 import { CreateUserDTO } from './usuarios/dto/create-user-dto';
+import { UserEntity } from './usuarios/entities/user.entity';
 import { UserRole } from './usuarios/enum/user.role';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService,
     private readonly authService: AuthService) { }
+
+    @Get('/teste-erro')
+    geraErro() {
+      return Result.fail<UserEntity>('E-mail é inválido.');
+    }
 
     @Get('/auth/with-google')
     @UseGuards(GoogleOAuthGuard)
