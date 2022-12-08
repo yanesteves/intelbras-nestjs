@@ -5,8 +5,9 @@ import { AppService } from './app.service';
 import { JwtModule } from '@nestjs/jwt';
 import { TwitterModule } from './twitter/twitter.module';
 import { AuthService } from './core/auth/auth.service';
-import { userProviders } from './usuarios/usuarios.providers';
 import { databaseProviders } from './core/database/database.providers';
+import { JwtStrategy } from './core/auth/jwt.strategy';
+import { twitterProviders } from './twitter/twitter.providers';
 
 @Module({
   imports: [    
@@ -25,9 +26,10 @@ import { databaseProviders } from './core/database/database.providers';
   controllers: [AppController],
   providers: [ 
     ...databaseProviders,
-    ...userProviders,   
+    ...twitterProviders,
     AppService,
-    AuthService
+    AuthService,
+    JwtStrategy
   ],
 })
 export class AppModule {}
