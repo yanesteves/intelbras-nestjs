@@ -7,12 +7,12 @@ export const twitterProviders = [
     provide: 'USER_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(UserEntity),
-    inject: ['DATA_TWITTER'],
+    inject: ['DATA_SOURCE'],
   },
   {
     provide: 'TWEET_REPOSITORY',
     useFactory: (dataSource: DataSource) =>
       dataSource.getRepository(TweetEntity),
-    inject: ['DATA_TWITTER'],
+    inject: ['DATA_SOURCE'],
   },
 ];
