@@ -3,8 +3,9 @@ import { JwtService } from '@nestjs/jwt';
 import { CredentialsDTO } from 'src/core/auth/dto/credentials.dto';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserEntity } from 'src/usuarios/entities/user.entity';
-import { CreateUserDTO } from 'src/usuarios/dto/create-user-dto';
+import { UserEntity } from 'src/twitter/entities/user.entity';
+import { CreateUserDTO } from 'src/twitter/dto/create-user.dto';
+import { JwtPayloadUser } from 'src/twitter/utils/jwt-payload-user';
 
 @Injectable()
 export class AuthService {
@@ -15,9 +16,9 @@ export class AuthService {
         ) {}
 
     async signUp(createUserDto: CreateUserDTO): Promise<UserEntity> {
-        if (createUserDto.password != createUserDto.confirm_password) {
-            throw new UnprocessableEntityException('As senhas não conferem.')
-        }
+        // if (createUserDto.password != createUserDto.confirm_password) {
+        //     throw new UnprocessableEntityException('As senhas não conferem.')
+        // }
         return await this.createUser(createUserDto)
     }
 
@@ -27,11 +28,10 @@ export class AuthService {
             throw new UnauthorizedException('E-mail e/ou senha incorretos')
         }
 
-        const jwtPayload = {
+        const jwtPayload: JwtPayloadUser = {
             id: user.id,
             name: user.name,
-            email: user.email,
-            role: user.role
+            email: user.email
         }
         const token = await this.jwtService.sign(jwtPayload);
         return { token }
@@ -39,15 +39,12 @@ export class AuthService {
 
     createUser(createUser: CreateUserDTO): Promise<UserEntity> {
         return new Promise(async (resolve) => {            
-            const { email, name, password, role } = createUser;
+            const { email, name, password, username } = createUser;
             const user = this.userRepository.create()
             user.email = email;
             user.name = name;
-            user.active = true;
-            user.role = role;
+            user.username = username;
             user.salt = await bcrypt.genSalt(12);
-            user.confirmationToken = '';
-            user.recoverToken = '';
             user.password = await this.hashPassword(password, user.salt);
             const userCreated = await this.userRepository.save(user);
             delete userCreated.password;
@@ -60,8 +57,7 @@ export class AuthService {
         const { email, password } = credentials;
         const user = await this.userRepository.findOne({
             where: {
-                email: email,
-                active: true
+                email: email
             }
         })
 

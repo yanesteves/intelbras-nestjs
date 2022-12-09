@@ -10,8 +10,8 @@ export const AppDataSource = new DataSource({
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
     entities: [
-        __dirname + '/../../**/**/*.entity{.ts,.js}', // As entidades serão buscadas em todas as pastas e precisa existir .entity no nome do arquivo.
-        "dist/**/**/*.entity.js" // Corrigindo possível problema de importação da Entity.          
+        __dirname + '/../../twitter/**/*.entity{.ts,.js}', // As entidades serão buscadas em todas as pastas e precisa existir .entity no nome do arquivo.
+        "dist/twitter/**/*.entity.js" // Corrigindo possível problema de importação da Entity.          
     ],
     migrations: [
       // __dirname + '../migrations/*{.ts,.js}',
