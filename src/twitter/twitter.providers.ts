@@ -1,6 +1,5 @@
 import { DataSource } from 'typeorm';
 import { FollowEntity } from './entities/follow.entity';
-// import { HashtagEntity } from './entities/hashtag.entity';
 import { TweetEntity } from './entities/tweet.entity';
 import { UserEntity } from './entities/user.entity';
 
