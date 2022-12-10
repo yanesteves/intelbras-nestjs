@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { FollowEntity } from './entities/follow.entity';
+import { RelationshipEntity } from './entities/relationships.entity';
 import { TweetEntity } from './entities/tweet.entity';
 import { UserEntity } from './entities/user.entity';
 
@@ -16,7 +16,7 @@ export const twitterProviders = [
   },
   {
     provide: 'FOLLOW_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(FollowEntity),
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(RelationshipEntity),
     inject: ['DATA_SOURCE'],
   },
 ];

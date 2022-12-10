@@ -1,8 +1,8 @@
 import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from 'typeorm';
 
 // "userId está seguindo followingId"
-@Entity({ name: 'follows' })
-export class FollowEntity {
+@Entity({ name: 'relationship' })
+export class RelationshipEntity {
   
   @PrimaryGeneratedColumn()
   id: number;

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { FollowEntity } from '../entities/follow.entity';
+import { RelationshipEntity } from '../entities/relationships.entity';
 import { JwtPayloadUser } from '../utils/jwt-payload-user';
 
 @Injectable()
@@ -8,13 +8,13 @@ export class FollowService {
  
     constructor(
         @Inject('FOLLOW_REPOSITORY')
-        private readonly followRepository: Repository<FollowEntity>
+        private readonly followRepository: Repository<RelationshipEntity>
     ) { }
 
      /**
      * Ex: Verifica se usuário A segue usuário B     
      */
-    async checkFollow(userId: number, followingId: number): Promise<FollowEntity> {
+    async checkFollow(userId: number, followingId: number): Promise<RelationshipEntity> {
         return await this.followRepository.findOne({
             where: {
                 userId: userId,

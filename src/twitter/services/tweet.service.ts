@@ -13,9 +13,7 @@ export class TweetService {
         private readonly userRepository: Repository<UserEntity>,
 
         @Inject('TWEET_REPOSITORY')
-        private readonly tweetRepository: Repository<TweetEntity>,
-
-
+        private readonly tweetRepository: Repository<TweetEntity>
     ) { }
 
     accessTweet(id: number) {
