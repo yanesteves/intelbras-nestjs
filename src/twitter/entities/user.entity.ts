@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import * as bcrypt from 'bcrypt';
 import { TweetEntity } from "./tweet.entity";
 
@@ -10,8 +10,14 @@ export class UserEntity {
     @Column({ length: 30 })
     username: string;
 
+    @Column({ length: 300, nullable: true })
+    bio: string;
+
     @Column({ length: 100 })
     name: string;
+
+    @Column({ default: false })
+    privateAccount: boolean;
   
     @Column({ length: 50, unique: true })
     email: string;

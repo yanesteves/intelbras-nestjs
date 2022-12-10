@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm';
-import { HashtagEntity } from './entities/hashtag.entity';
+import { FollowEntity } from './entities/follow.entity';
+// import { HashtagEntity } from './entities/hashtag.entity';
 import { TweetEntity } from './entities/tweet.entity';
 import { UserEntity } from './entities/user.entity';
 
@@ -15,8 +16,8 @@ export const twitterProviders = [
     inject: ['DATA_SOURCE'],
   },
   {
-    provide: 'HASHTAG_REPOSITORY',
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(HashtagEntity),
+    provide: 'FOLLOW_REPOSITORY',
+    useFactory: (dataSource: DataSource) => dataSource.getRepository(FollowEntity),
     inject: ['DATA_SOURCE'],
   },
 ];
