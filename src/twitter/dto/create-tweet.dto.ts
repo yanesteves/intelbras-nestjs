@@ -4,5 +4,5 @@ export class CreateTweetDTO {
     @IsString()
     @MinLength(1)
     @MaxLength(280)
-    readonly tweet: string;
+    readonly content: string;
 }

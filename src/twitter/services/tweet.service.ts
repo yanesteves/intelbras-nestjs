@@ -27,7 +27,7 @@ export class TweetService {
                 },
                 select: {
                     id: true,
-                    tweet: true,
+                    content: true,
                     createdAt: true,
                     user: {
                         id: true,
@@ -52,7 +52,7 @@ export class TweetService {
                 const user = this.userRepository.create(userPayload);
 
                 const tweetInstance = this.tweetRepository.create();
-                tweetInstance.tweet = tweet.tweet;
+                tweetInstance.content = tweet.content;
                 tweetInstance.user = user;
 
                 resolve(await this.tweetRepository.save(tweetInstance));

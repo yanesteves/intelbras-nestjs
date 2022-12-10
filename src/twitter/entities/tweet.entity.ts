@@ -7,7 +7,7 @@ export class TweetEntity {
     id: number;
 
     @Column({ width: 280 })
-    tweet: string;
+    content: string;
 
     @ManyToOne(() => UserEntity, (user) => user.tweets, { onDelete: 'SET NULL' })
     @JoinColumn({ name: 'user_id' })
