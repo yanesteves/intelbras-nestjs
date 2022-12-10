@@ -1,0 +1,259 @@
+{
+	"info": {
+		"_postman_id": "0348c959-5ff5-4c4d-86e4-f2a68fcad0b0",
+		"name": "Twitter Intelbras",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18628383"
+	},
+	"item": [
+		{
+			"name": "Twitter",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"yan.m.esteves@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/auth/signin",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Yan Esteves\",\r\n    \"username\": \"yanesteves\",\r\n    \"email\": \"yan.m.esteves@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/auth/signup",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IllhbiBFc3RldmVzIiwiZW1haWwiOiJ5YW4ubS5lc3RldmVzQGdtYWlsLmNvbSIsImlhdCI6MTY3MDY0NDQ2MiwiZXhwIjoxNjcwNjQ1OTAyfQ.43kvJjOOWCAV7tKq7aTE3ITgB6UKb5sPX_fwz2DES9Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"privateAccount\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/twitter/update-account",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"twitter",
+								"update-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tweet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IllhbiBFc3RldmVzIiwiZW1haWwiOiJ5YW4ubS5lc3RldmVzQGdtYWlsLmNvbSIsImlhdCI6MTY3MDY0MzMzMCwiZXhwIjoxNjcwNjQ0NzcwfQ.t6VXwbI7jzyjyYyNJOXWu3Lkdu3KaPAOpXvVBGFgPIQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"tweet\": \"Brasil é só derrota. #copadomundo #lab365\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/twitter/tweet",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"twitter",
+								"tweet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Follow User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IllhbiBFc3RldmVzIiwiZW1haWwiOiJ5YW4ubS5lc3RldmVzQGdtYWlsLmNvbSIsImlhdCI6MTY3MDY0MzY1OCwiZXhwIjoxNjcwNjQ1MDk4fQ.bA-_jTQpfIucOHufw95zMX9g4hgEVu1IsjLZ7uqxvRQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/twitter/follow/2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"twitter",
+								"follow",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IllhbiBFc3RldmVzIiwiZW1haWwiOiJ5YW4ubS5lc3RldmVzQGdtYWlsLmNvbSIsImlhdCI6MTY3MDY0NDY5MiwiZXhwIjoxNjcwNjQ2MTMyfQ.VAgQ3C4YgbO2JzksmQ6-jOEtr_zvPpoCmlyuftW3fwE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/twitter/yanesteves",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"twitter",
+								"yanesteves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tweet",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"nome\": \"Zezinho\",\r\n\t\"email\": \"zezeinhp@mail.com\",\r\n\t\"usuario\": \"zeze\",\r\n\t\"ativo\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/twitter/tweet/1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"twitter",
+								"tweet",
+								"1"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

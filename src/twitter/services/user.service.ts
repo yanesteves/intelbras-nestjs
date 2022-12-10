@@ -10,9 +10,9 @@ import { FollowService } from './follow.service';
 export class UserService {
     constructor(@Inject('USER_REPOSITORY')
     private readonly userRepository: Repository<UserEntity>,
-    private readonly followService: FollowService) { }
+        private readonly followService: FollowService) { }
 
-    accessUserProfile(username: string) {
+    accessUserProfile(userPayload: JwtPayloadUser, username: string) {
         return new Promise(async (resolve, reject) => {
             const user: OutputUserDTO = await this.userRepository.findOne({
                 where: {
@@ -24,6 +24,7 @@ export class UserService {
                 select: {
                     id: true,
                     name: true,
+                    privateAccount: true,
                     tweets: {
                         id: true,
                         tweet: true,
@@ -31,6 +32,10 @@ export class UserService {
                     }
                 }
             })
+
+            if (user.privateAccount && !(await this.followService.checkFollow(userPayload.id, user.id)) && user.id !== userPayload.id) {
+                reject('Você não segue este usuário.')
+            }
 
             user.followers = await this.followService.followersCount(user.id)
             user.following = await this.followService.followingCount(user.id)
@@ -42,14 +47,13 @@ export class UserService {
             resolve(user)
         })
     }
-
+    
     updateAccount(userPayload: JwtPayloadUser, updateUser: UpdateUserDTO) {
         return new Promise<void>(async (resolve, reject) => {
             await this.userRepository.update(
                 {
                     id: userPayload.id
-                }, updateUser)
-
+                }, updateUser)            
             resolve();
         })
     }

@@ -5,10 +5,23 @@ import { JwtPayloadUser } from '../utils/jwt-payload-user';
 
 @Injectable()
 export class FollowService {
+ 
     constructor(
         @Inject('FOLLOW_REPOSITORY')
         private readonly followRepository: Repository<FollowEntity>
     ) { }
+
+     /**
+     * Ex: Verifica se usuário A segue usuário B     
+     */
+    async checkFollow(userId: number, followingId: number): Promise<FollowEntity> {
+        return await this.followRepository.findOne({
+            where: {
+                userId: userId,
+                followingId: followingId
+            }
+        })
+    }
 
     /**
      * Ex: usuário A deseja começar a seguir usuário B     
