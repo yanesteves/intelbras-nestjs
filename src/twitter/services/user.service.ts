@@ -27,7 +27,7 @@ export class UserService {
                     privateAccount: true,
                     tweets: {
                         id: true,
-                        tweet: true,
+                        content: true,
                         createdAt: true
                     }
                 }
