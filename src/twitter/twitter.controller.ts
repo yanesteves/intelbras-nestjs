@@ -3,6 +3,7 @@ import { JwtAuthGuard } from 'src/core/auth/guards/jwt-auth.guard';
 import { CreateTweetDTO } from './dto/create-tweet.dto';
 import { UpdateUserDTO } from './dto/update-user.dto';
 import { FollowService } from './services/follow.service';
+import { TrendsService } from './services/trends.service';
 import { TweetService } from './services/tweet.service';
 import { UserService } from './services/user.service';
 
@@ -12,7 +13,8 @@ export class TwitterController {
   
   constructor(private readonly followService: FollowService,
     private readonly tweetService: TweetService,
-    private readonly userService: UserService) {}
+    private readonly userService: UserService,
+    private readonly trendService: TrendsService) {}
   
   @Patch('/update-account')
   async updateAccount(@Request() request, @Body() body: UpdateUserDTO) {
@@ -37,5 +39,10 @@ export class TwitterController {
   @Get('/tweet/:id')
   async getTweet(@Param('id') id: string) {
     return await this.tweetService.accessTweet(+id);
+  }
+
+  @Get('/trends')
+  async getTrends() {
+    return await this.trendService.getTrends();
   }
 }

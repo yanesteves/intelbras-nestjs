@@ -1,4 +1,4 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { Body, ConflictException, Controller, Get, NotFoundException, Post, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './core/auth/auth.service';
 import { CredentialsDTO } from './core/auth/dto/credentials.dto';
 import { CreateUserDTO } from './twitter/dto/create-user.dto';
@@ -20,7 +20,21 @@ export class AppController {
     return await this.authService.signIn(credentialsDto);
   }
 
-  
+  @Get('/teste-throw')
+  async testeThrow() {
+    await this.method()
+    return 'ok'
+  }
+
+  async method() {
+    // throw new NotFoundException();
+
+    return new Promise<void>((resolve) => {
+      throw new ConflictException('Conflict.',{ cause: new Error(), description: 'E-mail já cadastrado.' })
+    })
+  }
+
+
   // @Get('/auth/with-google')
   // @UseGuards(GoogleOAuthGuard)
   // // eslint-disable-next-line @typescript-eslint/no-empty-function

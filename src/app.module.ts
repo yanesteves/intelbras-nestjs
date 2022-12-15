@@ -8,6 +8,8 @@ import { databaseProviders } from './core/database/database.providers';
 import { JwtStrategy } from './core/auth/guards/strategy/jwt.strategy';
 import { TwitterModule } from './twitter/twitter.module';
 import { twitterProviders } from './twitter/twitter.providers';
+import { HttpExceptionFilter } from './core/errors/http-exception.filter';
+import { APP_FILTER } from '@nestjs/core';
 
 @Module({
   imports: [    
@@ -30,6 +32,10 @@ import { twitterProviders } from './twitter/twitter.providers';
     AppService,
     AuthService,
     JwtStrategy,
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: HttpExceptionFilter,
+    // },
     // Caso queira RolesGuard global no app
     // Possível problema:
     // Quando está global, ele executará antes do guard anterior
